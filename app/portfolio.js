@@ -2,7 +2,7 @@ import React, { useState, createContext, useContext, useRef } from "react";
 import { motion, useInView } from "framer-motion";
 import {
   Mail,
-  LinkedIn,
+  Linkedin,
   Phone,
   Moon,
   Sun,
@@ -16,7 +16,7 @@ import {
   Cloud,
   Workflow,
   Database,
-  GitHub,
+  Github,
 } from "lucide-react";
 
 const GITHUB_URL = "https://github.com/Varshini-Deekonda/gcp-finance-data-platform";
@@ -340,7 +340,6 @@ function Hero() {
 
   return (
     <section id="hero" className="relative pt-32 pb-24 md:pt-44 md:pb-32 px-6 md:px-8 max-w-5xl mx-auto overflow-hidden">
-      {/* ambient geometric backdrop */}
       <motion.div
         aria-hidden="true"
         className="absolute -top-24 -right-24 w-72 h-72 md:w-96 md:h-96 rounded-full pointer-events-none"
@@ -744,6 +743,7 @@ function Footer() {
 /* App                                                                  */
 /* ------------------------------------------------------------------ */
 
+// Removed default word to adhere to Next.js modular page system rules
 export function Portfolio() {
   const [dark, setDark] = useState(true);
   const t = dark ? darkTheme : lightTheme;
