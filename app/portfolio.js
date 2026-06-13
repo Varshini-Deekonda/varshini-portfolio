@@ -744,7 +744,7 @@ function Footer() {
 /* App                                                                  */
 /* ------------------------------------------------------------------ */
 
-export default function Portfolio() {
+export function Portfolio() {
   const [dark, setDark] = useState(true);
   const t = dark ? darkTheme : lightTheme;
 
