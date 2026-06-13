@@ -17,9 +17,21 @@ import {
   Workflow,
   Database,
   Github,
+  BarChart3,
+  Server,
+  GitBranch,
+  Layers,
+  RefreshCw,
+  Boxes,
+  Terminal,
+  GraduationCap,
+  Award,
+  Download,
 } from "lucide-react";
 
 const GITHUB_URL = "https://github.com/Varshini-Deekonda/gcp-finance-data-platform";
+const LINKEDIN_URL = "https://www.linkedin.com/in/varshini-deekonda-6389a61b3";
+const RESUME_URL = "/resume.pdf";
 
 /* ------------------------------------------------------------------ */
 /* Theme tokens                                                         */
@@ -67,6 +79,7 @@ const NAV_LINKS = [
   { id: "about", label: "About" },
   { id: "skills", label: "Stack" },
   { id: "experience", label: "Experience" },
+  { id: "education", label: "Education" },
   { id: "projects", label: "Engagements" },
   { id: "contact", label: "Contact" },
 ];
@@ -94,6 +107,22 @@ const SKILLS = [
     ],
   },
 ];
+
+const TECH_STACK = [
+  { icon: Database, label: "SQL" },
+  { icon: Code2, label: "Python" },
+  { icon: Workflow, label: "PySpark" },
+  { icon: BarChart3, label: "BigQuery" },
+  { icon: Boxes, label: "Cloud Storage" },
+  { icon: Server, label: "Dataproc" },
+  { icon: GitBranch, label: "Cloud Composer" },
+  { icon: Layers, label: "Talend ETL" },
+  { icon: RefreshCw, label: "Qlik Replicate" },
+  { icon: Terminal, label: "Talend TAC / TMC" },
+  { icon: Cloud, label: "GCP" },
+  { icon: Database, label: "Oracle / SQL Server" },
+];
+
 
 const EXPERIENCE = [
   {
@@ -141,6 +170,30 @@ const EXPERIENCE = [
         ],
       },
     ],
+  },
+];
+
+const EDUCATION = [
+  {
+    school: "Maturi Venkata Subba Rao College of Engineering",
+    degree: "Bachelor of Engineering — Electronics & Communication",
+    period: "Apr 2019 — May 2022",
+    detail: "GPA: 8.38 / 10",
+  },
+];
+
+const CERTIFICATIONS = [
+  {
+    title: "Qlik Data Integration Sales Specialist",
+    issuer: "Qlik",
+  },
+  {
+    title: "Qlik Data Integration Solution Specialist",
+    issuer: "Qlik",
+  },
+  {
+    title: "Qlik Data Integration Implementation Specialist",
+    issuer: "Qlik",
   },
 ];
 
@@ -254,6 +307,37 @@ function FadeIn({ children, delay = 0, className = "" }) {
   );
 }
 
+function SocialIcons({ size = 15, className = "" }) {
+  const { t } = useContext(ThemeContext);
+  const iconBtnStyle = {
+    border: `1px solid ${t.border}`,
+    color: t.text,
+  };
+  const links = [
+    { href: LINKEDIN_URL, icon: Linkedin, label: "LinkedIn", external: true },
+    { href: GITHUB_URL, icon: Github, label: "GitHub", external: true },
+    { href: "mailto:deekondavarshini10@gmail.com", icon: Mail, label: "Email", external: false },
+    { href: "tel:+916303924569", icon: Phone, label: "Phone", external: false },
+  ];
+
+  return (
+    <div className={`flex items-center gap-3 ${className}`}>
+      {links.map(({ href, icon: Icon, label, external }) => (
+        <a
+          key={label}
+          href={href}
+          aria-label={label}
+          {...(external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+          className="w-10 h-10 rounded-full flex items-center justify-center transition-transform hover:-translate-y-0.5"
+          style={iconBtnStyle}
+        >
+          <Icon size={size} />
+        </a>
+      ))}
+    </div>
+  );
+}
+
 /* ------------------------------------------------------------------ */
 /* Nav                                                                  */
 /* ------------------------------------------------------------------ */
@@ -294,6 +378,14 @@ function Nav({ dark, setDark }) {
         </nav>
 
         <div className="flex items-center gap-3">
+          <a
+            href={RESUME_URL}
+            download
+            style={{ ...fontMono, background: t.gold, color: "#191305", fontSize: "0.75rem" }}
+            className="hidden sm:inline-flex items-center gap-2 px-4 py-2 rounded-full font-medium uppercase tracking-wider transition-transform hover:-translate-y-0.5"
+          >
+            <Download size={13} /> Resume
+          </a>
           <button
             aria-label="Toggle color theme"
             onClick={() => setDark(!dark)}
@@ -325,6 +417,14 @@ function Nav({ dark, setDark }) {
               {link.label}
             </button>
           ))}
+          <a
+            href={RESUME_URL}
+            download
+            style={{ ...fontMono, color: t.gold, fontSize: "0.85rem" }}
+            className="uppercase tracking-wider text-left pt-3 inline-flex items-center gap-2"
+          >
+            <Download size={14} /> Resume
+          </a>
         </div>
       )}
     </header>
@@ -354,6 +454,19 @@ function Hero() {
         animate={{ scale: [1, 1.12, 1], rotate: [0, -12, 0] }}
         transition={{ duration: 22, repeat: Infinity, ease: "easeInOut" }}
       />
+
+      <FadeIn>
+        <div
+          style={{ ...fontMono, color: t.success, background: `${t.success}1A`, border: `1px solid ${t.success}55`, fontSize: "0.7rem" }}
+          className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full uppercase tracking-wider mb-5"
+        >
+          <span className="relative flex h-2 w-2">
+            <span className="absolute inline-flex h-full w-full rounded-full opacity-60 animate-ping" style={{ background: t.success }} />
+            <span className="relative inline-flex rounded-full h-2 w-2" style={{ background: t.success }} />
+          </span>
+          Available for hire
+        </div>
+      </FadeIn>
 
       <FadeIn>
         <Eyebrow>Data Engineer · GCP · BigQuery · Talend</Eyebrow>
@@ -387,7 +500,9 @@ function Hero() {
             Email me <ArrowRight size={15} />
           </a>
           <a
-            href="#"
+            href={LINKEDIN_URL}
+            target="_blank"
+            rel="noopener noreferrer"
             style={{ ...fontMono, color: t.text, border: `1px solid ${t.border}`, fontSize: "0.85rem" }}
             className="inline-flex items-center gap-2 px-5 py-3 rounded-lg transition-transform hover:-translate-y-0.5"
           >
@@ -403,6 +518,10 @@ function Hero() {
             <Github size={15} /> GitHub
           </a>
         </div>
+      </FadeIn>
+
+      <FadeIn delay={0.3}>
+        <SocialIcons className="mt-6" />
       </FadeIn>
     </section>
   );
@@ -497,6 +616,36 @@ function Skills() {
           ))}
         </div>
       </FadeIn>
+
+      <FadeIn delay={0.25}>
+        <h3 style={{ ...fontDisplay, color: t.text }} className="text-lg md:text-xl font-semibold mt-14 mb-6">
+          Mastered Tools &amp; Skills
+        </h3>
+      </FadeIn>
+
+      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
+        {TECH_STACK.map((tech, i) => {
+          const Icon = tech.icon;
+          return (
+            <FadeIn key={tech.label} delay={0.25 + i * 0.04}>
+              <div
+                className="h-full p-4 rounded-xl flex items-center gap-3"
+                style={{ background: t.surface, border: `1px solid ${t.border}` }}
+              >
+                <div
+                  className="w-9 h-9 rounded-lg flex items-center justify-center flex-shrink-0"
+                  style={{ background: t.surface2, color: t.gold }}
+                >
+                  <Icon size={16} />
+                </div>
+                <span style={{ ...fontBody, color: t.text }} className="text-sm font-medium">
+                  {tech.label}
+                </span>
+              </div>
+            </FadeIn>
+          );
+        })}
+      </div>
     </Section>
   );
 }
@@ -565,6 +714,95 @@ function Experience() {
 }
 
 /* ------------------------------------------------------------------ */
+/* Education & Certifications                                          */
+/* ------------------------------------------------------------------ */
+
+function EducationCertifications() {
+  const { t } = useContext(ThemeContext);
+  return (
+    <Section id="education" taskId="archive_credentials" label="Archive" className="px-6 md:px-8 max-w-5xl mx-auto pb-16">
+      <FadeIn>
+        <Eyebrow>Background</Eyebrow>
+        <h2 style={{ ...fontDisplay, color: t.text }} className="text-2xl md:text-4xl font-semibold tracking-tight mb-10">
+          Academic foundation &amp; certifications.
+        </h2>
+      </FadeIn>
+
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+        <FadeIn>
+          <div
+            className="h-full p-6 rounded-2xl"
+            style={{ background: t.surface, border: `1px solid ${t.border}`, boxShadow: t.shadow }}
+          >
+            <div
+              className="w-10 h-10 rounded-lg flex items-center justify-center mb-4"
+              style={{ background: t.surface2, color: t.gold }}
+            >
+              <GraduationCap size={18} />
+            </div>
+            <h3 style={{ ...fontDisplay, color: t.text }} className="text-base font-semibold mb-4">
+              Education
+            </h3>
+            <div className="space-y-4">
+              {EDUCATION.map((edu) => (
+                <div key={edu.school}>
+                  <div className="flex flex-wrap items-baseline justify-between gap-2">
+                    <span style={{ ...fontBody, color: t.text }} className="text-sm font-medium">
+                      {edu.school}
+                    </span>
+                    <span style={{ ...fontMono, color: t.textMuted, fontSize: "0.7rem" }}>{edu.period}</span>
+                  </div>
+                  <p style={{ ...fontBody, color: t.textMuted }} className="text-sm mt-1">
+                    {edu.degree}
+                  </p>
+                  <p style={{ ...fontMono, color: t.gold, fontSize: "0.7rem" }} className="mt-1 uppercase tracking-wider">
+                    {edu.detail}
+                  </p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </FadeIn>
+
+        <FadeIn delay={0.08}>
+          <div
+            className="h-full p-6 rounded-2xl"
+            style={{ background: t.surface, border: `1px solid ${t.border}`, boxShadow: t.shadow }}
+          >
+            <div
+              className="w-10 h-10 rounded-lg flex items-center justify-center mb-4"
+              style={{ background: t.surface2, color: t.gold }}
+            >
+              <Award size={18} />
+            </div>
+            <h3 style={{ ...fontDisplay, color: t.text }} className="text-base font-semibold mb-4">
+              Certifications
+            </h3>
+            <ul className="space-y-3">
+              {CERTIFICATIONS.map((cert) => (
+                <li key={cert.title} className="flex items-start gap-3">
+                  <span style={{ color: t.gold }} className="mt-1.5 flex-shrink-0">
+                    <Circle size={5} fill={t.gold} stroke="none" />
+                  </span>
+                  <div>
+                    <span style={{ ...fontBody, color: t.text }} className="text-sm">
+                      {cert.title}
+                    </span>
+                    <span style={{ ...fontMono, color: t.textMuted, fontSize: "0.7rem" }} className="block mt-0.5 uppercase tracking-wider">
+                      {cert.issuer}
+                    </span>
+                  </div>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </FadeIn>
+      </div>
+    </Section>
+  );
+}
+
+/* ------------------------------------------------------------------ */
 /* Projects                                                             */
 /* ------------------------------------------------------------------ */
 
@@ -621,7 +859,9 @@ function ProjectCard({ project, index }) {
             Discuss this <ArrowUpRight size={13} />
           </a>
           <a
-            href="#"
+            href={LINKEDIN_URL}
+            target="_blank"
+            rel="noopener noreferrer"
             style={{ ...fontMono, color: t.textMuted, fontSize: "0.75rem" }}
             className="inline-flex items-center gap-1.5 uppercase tracking-wider"
           >
@@ -687,7 +927,9 @@ function Contact() {
               <Mail size={16} /> deekondavarshini10@gmail.com
             </a>
             <a
-              href="#"
+              href={LINKEDIN_URL}
+              target="_blank"
+              rel="noopener noreferrer"
               style={{ ...fontMono, color: t.text, border: `1px solid ${t.border}`, fontSize: "0.9rem" }}
               className="inline-flex items-center gap-2 px-6 py-3.5 rounded-lg transition-transform hover:-translate-y-0.5 w-full sm:w-auto justify-center"
             >
@@ -725,12 +967,13 @@ function Footer() {
   return (
     <footer className="px-6 md:px-8 max-w-5xl mx-auto pb-10">
       <div
-        className="flex flex-col sm:flex-row items-center justify-between gap-4 pt-6"
+        className="flex flex-col sm:flex-row items-center justify-between gap-6 pt-6"
         style={{ borderTop: `1px solid ${t.border}` }}
       >
         <span style={{ ...fontMono, color: t.textMuted, fontSize: "0.75rem" }}>
           © {new Date().getFullYear()} Varshini Deekonda
         </span>
+        <SocialIcons size={14} />
         <span style={{ ...fontMono, color: t.textMuted, fontSize: "0.75rem" }} className="uppercase tracking-wider">
           pipeline status: all tasks success
         </span>
@@ -771,6 +1014,7 @@ export function Portfolio() {
           <About />
           <Skills />
           <Experience />
+          <EducationCertifications />
           <Projects />
           <Contact />
         </main>
