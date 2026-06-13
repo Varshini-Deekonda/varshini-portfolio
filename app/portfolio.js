@@ -2,7 +2,7 @@ import React, { useState, createContext, useContext, useRef } from "react";
 import { motion, useInView } from "framer-motion";
 import {
   Mail,
-  LinkedIn,
+  Linkedin,
   Phone,
   Moon,
   Sun,
@@ -16,7 +16,7 @@ import {
   Cloud,
   Workflow,
   Database,
-  GitHub,
+  Github,
 } from "lucide-react";
 
 const GITHUB_URL = "https://github.com/Varshini-Deekonda/gcp-finance-data-platform";
