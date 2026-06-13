@@ -486,7 +486,7 @@ function Hero() {
         <p style={{ ...fontBody, color: t.textMuted }} className="mt-6 text-base md:text-lg max-w-xl leading-relaxed">
           4+ years architecting ELT/ETL systems for banking and financial services —
           from Medallion lakehouses on BigQuery to zero-downtime migrations of
-          5,000+ tables. Varshini Deekonda, based in Mumbai.
+          5,000+ tables. Varshini Deekonda, based in Hyderabad.
         </p>
       </FadeIn>
 
